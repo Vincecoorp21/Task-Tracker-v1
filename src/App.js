@@ -26,6 +26,15 @@ function App() {
     },
   ]);
 
+  // 2. Venimos de AddTask
+  const addTask = task => {
+    //como no tenemos un Backend tenemos que crear un id aleatorio para la nueva tarea//
+    const id = Math.floor(Math.random() * 10000) + 1;
+    const newTask = { id, ...task };
+    setTasks([...tasks, newTask]);
+  };
+  //3. Vamos a return y se lo pasamos por parametro a AddTask
+
   //DELETE A TASK//
 
   const deleteTask = id => {
@@ -48,7 +57,7 @@ function App() {
   return (
     <div className='container'>
       <Header title='Task Tracker' />
-      <Addtask />
+      <Addtask onAdd={addTask} />
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
