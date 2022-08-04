@@ -33,11 +33,21 @@ function App() {
     //no quiero mostrar la task con el id porque la estamos borrando. Te muestra aquellas que tienen un id distinto del que le haces click.
   };
 
+  //TOGGLE REMINDER ---- //
+
+  const toggleReminder = id => {
+    setTasks(
+      tasks.map(task =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    );
+  };
+
   return (
     <div className='container'>
       <Header title='Task Tracker' />
       {tasks.length > 0 ? (
-        <Tasks tasks={tasks} onDelete={deleteTask} />
+        <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
         'No Tasks to Show'
       )}
