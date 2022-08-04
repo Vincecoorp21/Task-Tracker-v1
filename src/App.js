@@ -5,6 +5,10 @@ import Tasks from './components/Tasks/Tasks';
 import Addtask from './components/AddTask/Addtask';
 
 function App() {
+  //ShowADDTASK
+
+  const [showAddTask, setShowAddTask] = useState(false);
+
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -32,6 +36,7 @@ function App() {
     const id = Math.floor(Math.random() * 10000) + 1;
     const newTask = { id, ...task };
     setTasks([...tasks, newTask]);
+    //Re-renderizamos el estado, mostramos las tasks que ya teníamos más la nueva que hemos creado.
   };
   //3. Vamos a return y se lo pasamos por parametro a AddTask
 
@@ -56,8 +61,14 @@ function App() {
 
   return (
     <div className='container'>
-      <Header title='Task Tracker' />
-      <Addtask onAdd={addTask} />
+      <Header
+        title='Task Tracker'
+        onAdd={() => setShowAddTask(!showAddTask)}
+        showAdd={showAddTask}
+      />
+
+      {showAddTask ? <Addtask onAdd={addTask} /> : ''}
+
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
