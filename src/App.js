@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Header from './components/Header/Header';
 import Tasks from './components/Tasks/Tasks';
+import Addtask from './components/AddTask/Addtask';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -37,6 +38,7 @@ function App() {
 
   const toggleReminder = id => {
     setTasks(
+      // aquí lo que hace es que si el id que le pasamos coinicide con el que le estamos clickando, entonces le cambiamos el reminder. Pasa de true a false o al revés. Si no coincide el id, entonces nos devuelve la tarea(que es lo quye está detrás del punto.) Cogemos tasks porque estamos atacando al estado con el userState. //
       tasks.map(task =>
         task.id === id ? { ...task, reminder: !task.reminder } : task
       )
@@ -46,6 +48,7 @@ function App() {
   return (
     <div className='container'>
       <Header title='Task Tracker' />
+      <Addtask />
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
